@@ -1,3 +1,6 @@
+__This is a mod of Spree for a specific site.__
+
+
 SUMMARY
 -------
 
@@ -207,3 +210,6 @@ Contributing
 ------------
 
 Spree is an open source project and we encourage contributions.  Please see the [contributors guidelines](http://spreecommerce.com/documentation/contributing_to_spree.html) before contributing.
+=======
+spree-1-3
+=========
