@@ -1,0 +1,51 @@
+<div class="fgbox">
+	We travel the world to find quality, exotic woods. Our 
+	woods have been used to craft beautiful artistic and remodeling 
+	projects, including furniture, floors, guitars, sculptures, and more.
+</div>
+
+<%#= render 'static_pages/woodpics' %>
+
+<div class="fgbox">
+	We house over # species from over # different countries 
+	in the form of slabs, lumber, turning blocks, and pen blanks. Feel free 
+	to <%= link_to "browse our species", "/t/species"%>.
+</div>
+
+<div class="fgbox">
+	We've put some of our finest pieces in our <%= link_to "online store", "/products"%>, 
+	but we've got plenty more in the warehouse. If you're in the Bay Area, 
+	come by and visit! 
+	<div class="warehouse picbox">
+		<%= image_tag("wood/warehouse1.png", :class => "first") %>
+		<% for i in 2..8 %>
+			<%= image_tag("wood/warehouse"+i.to_s+".png") %>
+		<% end %>
+	</div>
+</div>
+
+<div class="fgbox">If you've got any questions, give us a call at 
+	(408)392-0573 or <a href="mailto:sales@globalwoodsource.com">send us an email</a>.
+</div>
+
+<div class="fgbox">
+	Want to stay updated on our latest arrivals? Sign up for our 
+	<a href="#">monthly newsletter</a> or join us on your choice social network.
+	<div id="social">
+		<a target="swin" href="http://www.facebook.com/pages/Global-Wood-Source/110976175595970">
+			<%= image_tag("store/facebook.png")%>
+		</a>
+		<a target="swin" href="http://twitter.com/GlobalWoodSourc">
+			<%= image_tag("store/twitter.png")%>
+		</a>
+		<a target="_blank" href="http://pinterest.com/globalwoodsourc/">
+			<%= image_tag("store/pinterest.png")%>
+		</a>
+	</div>
+
+</div>
+
+<div class="fgbox">
+	And check out our <a href="#">videos</a> to see more of the shop and learn 
+	about some of the exotic locations we've traveled.
+</div>

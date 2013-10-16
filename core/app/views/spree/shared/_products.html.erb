@@ -1,0 +1,64 @@
+<%
+  paginated_products = @searcher.retrieve_products if params.key?(:keywords)
+  paginated_products ||= products
+%>
+<% if params.key?(:keywords) %>
+  <h6 class="search-results-title"><%= t(:search_results, :keywords => h(params[:keywords])) %></h6>
+<% end %>
+
+<% samples = Array.new %>
+<% if products.any? %>
+<ul id="products" class="product-listing" data-hook>
+  <% products.each do |product| %>
+    <% if product.on_display? %>
+      <li id="product_<%= product.id %>" class="columns three <%= cycle("even", "odd", :name => "classes") %>" data-hook="products_list_item" itemscope itemtype="http://schema.org/Product">
+        <div class="product-image">
+        <% if product.images.first %>
+      		<%= link_to image_tag(product.images.first.attachment.url(:product, false)), product, :itemprop => 'url' %>
+      	<% end %>
+      	</div>
+      	<div class="product-info">
+		<%= link_to product.name, product, :class => 'info', :itemprop => "name", :title => product.name %>
+		<table>
+			<% unless product.weight.blank? %>
+			<tr>
+				
+				<td class="first">Weight:</td>
+				<td><%= product.weight %> lbs</td>
+			</tr>
+			<% end %>
+			<% unless product.width.blank? %>
+			<tr>
+				<td class="first">Dimensions:</td>
+				<td>
+		    	<%= product.width  %>"x 
+		    	<%= product.height %>"x
+		    	<%= product.depth  %>"
+		    	</td>
+    		</tr>
+    		<% end %>
+    	</table>
+		<%= render :partial => 'spree/shared/add_to_cart', :locals => { :product => product }   %>
+		</div>
+      </li>
+    <% else %>
+	    	<% samples.push(product) %>
+    <% end %>
+  <% end %>
+  <% reset_cycle("classes") %>
+</ul>
+<% end %>
+
+<% if !samples.empty? || !products.any? %>
+<% if @taxon %>
+<div class="fgbox">
+  It looks like we don't have any posted online, but we'd be happy to check our stock for you. 
+  Give us a call at (408)392-0573 or <a href="mailto:sales@globalwoodsource.com">send us an email</a> 
+  if you're interested in <%= @taxon.name.downcase %>.
+</div>
+<% end %>
+<% end %>
+
+<% if paginated_products.respond_to?(:num_pages) %>
+  <%= paginate paginated_products %>
+<% end %>

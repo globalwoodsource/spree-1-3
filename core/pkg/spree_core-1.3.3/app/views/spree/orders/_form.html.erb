@@ -1,0 +1,22 @@
+<% @order.errors.messages.each do |msg| %>
+<div class="flash error">
+       <%= msg[1].to_s[2..-3] %>
+</div>
+<% end %>
+<table id="cart-detail" data-hook>
+  <thead>
+    <tr data-hook="cart_items_headers">
+      <th class="cart-item-description-header" colspan="2">Name</th>
+      <th class="cart-item-price-header">Price</th>
+      <th class="cart-item-quantity-header">Qty</th>
+      <th class="cart-item-total-header">Total</th>
+      <th class="cart-item-delete-header"></th>
+    </tr>
+  </thead>
+  <tbody id="line_items" data-hook>
+    <%= order_form.fields_for :line_items do |item_form| %>
+      <%= render :partial => 'line_item', :locals => { :variant => item_form.object.variant, :line_item => item_form.object, :item_form => item_form } %>
+    <% end %>
+  </tbody>
+  <%= render "spree/orders/adjustments" unless @order.adjustments.eligible.blank? %>
+</table>

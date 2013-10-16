@@ -1,0 +1,32 @@
+<%= form_for :order, :url => populate_orders_path do |f| %>
+  <div id="inside-product-cart-form" data-hook="inside_product_cart_form" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+
+    <% if product.price_in(current_currency) and !product.price.nil? %>
+      <div data-hook="product_price" class="columns five <% if !product.has_variants? %> alpha <% else %> omega <% end %>">
+        
+        <div id="product-price">
+          <% if product.master.in_stock? %>
+            <link itemprop="availability" href="http://schema.org/InStock" />
+          <% end %> 
+        </div>
+
+        <div class="add-to-cart">
+          <% if product.count_on_hand > 1 %>
+          	<%= number_field_tag ("variants[#{product.master.id}]"),
+           1, :class => 'title', :min => 1, :max => product.count_on_hand %>
+          <% else %>
+          	<%= hidden_field_tag ("variants[#{product.master.id}]"), 1 %>
+          <% end %>
+          <%= button_tag :class => 'large primary', :id => 'add-to-cart-button', :type => :submit do %>
+            <%= t(:add_to_cart) %>
+          <% end %>
+        </div>
+      </div>
+    <% else %>
+        <div id="product-price">
+          <br>
+          <div><span class="price selling" itemprop="price"><%= t('product_not_available_in_this_currency') %></span></div>
+        </div>
+    <% end %>    
+  </div>
+<% end %>

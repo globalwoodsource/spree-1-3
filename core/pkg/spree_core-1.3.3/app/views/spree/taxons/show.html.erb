@@ -1,0 +1,25 @@
+<% if @taxon.children.empty? %>
+	<div class="species_info fgbox">
+		<div class="species_display">
+			<h2><%= @taxon.name %></h2>
+			<%= image_tag(@taxon.icon, :style => :large, :alt => "")%>
+		</div>
+		<p><%= @taxon.description %></p>
+	</div>
+	
+	<br class="clear">
+
+	<div data-hook="taxon_products">
+	  <%= render :partial => 'spree/shared/products', :locals => { :products => @products, :taxon => @taxon } %>
+	</div>
+
+<% else %>
+	<h1 class="taxon-title fgbox"><%= @taxon.name %></h1>
+	
+	<% unless params[:keywords].present? %>
+	  <div data-hook="taxon_children">
+	    <%= render :partial => 'taxon', :collection => @taxon.children %>
+	  </div>
+	<% end %>
+<% end %>
+

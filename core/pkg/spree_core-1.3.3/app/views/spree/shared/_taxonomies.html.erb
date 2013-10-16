@@ -1,0 +1,17 @@
+<nav id="taxonomies" data-hook>
+  <% get_taxonomies.each do |taxonomy| %>
+    <div class="taxonomy fgbox">
+  	
+    <h2 class='taxonomy-root'><%= t(:shop_by_taxonomy, :taxonomy => taxonomy.name) %></h2>
+    </div>
+	<% taxonomy.taxons.each do |taxon| %>
+	<% if taxon.children.empty? %>
+		<div class="minibox">
+			<%= link_to image_tag(taxon.icon), seo_url(taxon)%>
+		    <h5><%= link_to taxon.name, seo_url(taxon) %></h5>
+		</div>
+	<% end %>
+	<% end %>
+  	<br class="clear">
+  <% end %>
+</nav>
